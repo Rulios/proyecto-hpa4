@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:showIn="navigation_view">
+
+    <group
+        android:checkableBehavior="single">
+
+        <item
+            android:id="@+id/valor1"
+            android:title="Valor1"/>
+        <!--- android:icon="@drawable/recurso -->
+        <item
+            android:id="@+id/valor2"
+            android:title="Valor2"/>
+        <item
+            android:id="@+id/valor3"
+            android:title="Valor3"/>
+        <item
+            android:id="@+id/valor4"
+            android:title="Valor5"/>
+
+    </group>
+
+    <item
+        android:title="">
+
+        <menu>
+            <item
+                android:id="@+id/cerrarsesion"
+                android:title="Cerrar sesión"/>
+        </menu>
+    </item>
+
+
+</menu>

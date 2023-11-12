@@ -1,5 +1,6 @@
 package com.example.proyecto1_hpa;
 
+import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
@@ -7,6 +8,7 @@ import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuInflater;
 import androidx.appcompat.widget.Toolbar;
+import androidx.drawerlayout.widget.DrawerLayout;
 
 import android.widget.ListView;
 import java.util.ArrayList;
@@ -17,6 +19,7 @@ import androidx.viewpager2.widget.ViewPager2;
 public class MainActivity extends AppCompatActivity {
 
     private Toolbar TB;
+    private DrawerLayout DL;
 
 
 
@@ -29,6 +32,8 @@ public class MainActivity extends AppCompatActivity {
 
         TB=findViewById(R.id.TB);
         setSupportActionBar(TB);
+        DL=(DrawerLayout) findViewById(R.id.DL);
+
 
         //código para llenar la info del viewpager
         viewPagerValores = findViewById(R.id.viewPager2);
@@ -43,6 +48,14 @@ public class MainActivity extends AppCompatActivity {
 
         Adaptador viewPagerAdaptador = new Adaptador( getSupportFragmentManager(), getLifecycle(), lista);
         viewPagerValores.setAdapter(viewPagerAdaptador);
+
+
+        ActionBarDrawerToggle toggle=new ActionBarDrawerToggle(this, DL, TB, R.string.open_nav, R.string.close_nav);
+        DL.addDrawerListener(toggle);
+        toggle.syncState();
+        if (savedInstanceState==null){
+
+        }
 
     }
 
