@@ -8,11 +8,4 @@
         app:showAsAction="ifRoom"
         />
 
-    <item
-        android:title="menu"
-        android:icon="@drawable/menu"
-        android:id="@+id/menu"
-        app:showAsAction="ifRoom"
-        />
-
 </menu>
