@@ -57,6 +57,9 @@ public class MainActivity extends AppCompatActivity {
 
         }
 
+        DatabaseSingleton.init(this);
+
+
     }
 
     @Override
