@@ -7,12 +7,12 @@ import android.database.sqlite.SQLiteDatabase;
 
 public class Usuarios {
 
-    private SQLiteDatabase db;
+    private final SQLiteDatabase db;
     private String username;
 
 
 
-    public Usuarios(SQLiteDatabase db, String username) {
+    public Usuarios(String username) {
         this.db = DatabaseSingleton.getDatabase();
         this.username = username;
     }
@@ -49,8 +49,11 @@ public class Usuarios {
 
         Cursor c = db.query("usuarios", columns, selection, selectionArgs, null, null, null, "1");
         if (c.moveToFirst()) {
-            return c.getInt(c.getColumnIndex("_id"));
+            int id = c.getInt(c.getColumnIndex("_id"));
+            c.close();
+            return  id;
         } else {
+            c.close();
             return -1;
         }
     }

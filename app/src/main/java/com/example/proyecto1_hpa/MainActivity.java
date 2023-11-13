@@ -21,6 +21,9 @@ public class MainActivity extends AppCompatActivity {
         TB=findViewById(R.id.TB);
         setSupportActionBar(TB);
 
+        DatabaseSingleton.init(this);
+
+
     }
 
     @Override

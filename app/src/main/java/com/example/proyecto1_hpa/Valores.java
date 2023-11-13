@@ -6,15 +6,15 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 
 public class Valores {
-    SQLiteDatabase db;
+    private final SQLiteDatabase db;
     private String nombre;
     private String descripcion;
     private int imagen;
     public Valores( String nombre, String descripcion, int imagen) {
+        this.db = DatabaseSingleton.getDatabase();
         this.nombre = nombre;
         this.descripcion = descripcion;
         this.imagen = imagen;
-        this.db = DatabaseSingleton.getDatabase();
     }
 
     public String getNombre() {
@@ -69,8 +69,11 @@ public class Valores {
 
         Cursor c = db.query("valores", columns, selection, selectionArgs, null, null, null, "1");
         if (c.moveToFirst()) {
-            return c.getInt(c.getColumnIndex("_id"));
+            int id = c.getInt(c.getColumnIndex("_id"));
+            c.close();
+            return  id;
         } else {
+            c.close();
             return -1;
         }
     }

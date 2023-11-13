@@ -10,14 +10,16 @@ import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
 
 public class Comentarios {
-    private SQLiteDatabase db;
-    private String username;
-    private String nombre_valor;
+    DateTimeFormatter dayFormatter = DateTimeFormatter.ofPattern("dd-MM-yyyy");
+    DateTimeFormatter timeFormatter = DateTimeFormatter.ofPattern("HH:mm");
+    private final SQLiteDatabase db;
+    private final String username;
+    private final String nombre_valor;
     private String descripcion;
     private LocalDate fecha;
     private LocalTime hora;
 
-    public Comentarios(SQLiteDatabase db, String username, String valor, String descripcion, LocalDate fecha, LocalTime hora) {
+    public Comentarios(String username, String valor, String descripcion, LocalDate fecha, LocalTime hora) {
         this.db = DatabaseSingleton.getDatabase();
         this.username = username;
         this.nombre_valor = valor;
@@ -43,8 +45,6 @@ public class Comentarios {
     }
     public void save() {
         ContentValues contentValues = new ContentValues();
-        DateTimeFormatter dayFormatter = DateTimeFormatter.ofPattern("dd-MM-yyyy");
-        DateTimeFormatter timeFormatter = DateTimeFormatter.ofPattern("HH:mm");
         String fechaStr = this.fecha.format(dayFormatter);
         String horaStr = this.hora.format(timeFormatter);
 
@@ -59,26 +59,47 @@ public class Comentarios {
 
     private void update() {
         ContentValues contentValues = new ContentValues();
-        contentValues.put("USERNAME", this.username);
-        db.update("usuarios", contentValues, "USERNAME = ?", new String[]{this.username});
+        this.fecha = LocalDate.now();
+        this.hora = LocalTime.now();
+
+        String fechaStr = this.fecha.format(dayFormatter);
+        String horaStr = this.hora.format(timeFormatter);
+
+        contentValues.put("DESCRIPCION", this.descripcion);
+        contentValues.put("FECHA", fechaStr);
+        contentValues.put("HORA", horaStr);
+
+        db.update("comentarios", contentValues, "USERNAME = ?", new String[]{this.username});
+    }
+
+    @SuppressLint("Range")
+    public static int getCommentId(String username, String nombre_valor) {
+        SQLiteDatabase db = DatabaseSingleton.getDatabase();
+        String[] columns = new String[] {"_id"};
+        String selection = "USERNAME = ? AND NOMBRE_VALOR = ?";
+        String[] selectionArgs = new String[]{username, nombre_valor};
+
+        Cursor cursor = db.query("comentarios", columns, selection, selectionArgs, null, null, null);
+
+        if (cursor.moveToFirst()) {
+            int id = cursor.getInt(cursor.getColumnIndex("_id"));
+            cursor.close();
+            return id;
+        } else {
+            cursor.close();
+            return -1; // Devuelve -1 si no se encuentra el comentario
+        }
     }
 
     public void delete() {
-        db.delete("usuarios", "USERNAME = ?", new String[]{this.username});
+        int id = Comentarios.getCommentId(this.username, this.nombre_valor);
+        db.delete("comentarios", "_id = ?", new String[]{String.valueOf(id)});
     }
-
-    public static Cursor findByUsername(String username) {
+    public static Cursor getAllComments(String nombreValor) {
         SQLiteDatabase db = DatabaseSingleton.getDatabase();
-        String[] columns = new String[] {"USERNAME"};
-        String selection = "USERNAME = ?";
-        String[] selectionArgs = new String[]{username};
-
-        return db.query("usuarios", columns, selection, selectionArgs, null, null, null, "1");
-    }
-    public static Cursor getAllUsers() {
-        SQLiteDatabase db = DatabaseSingleton.getDatabase();
-        String query = "SELECT * FROM usuarios";
-        return db.rawQuery(query, null);
+        String query = "SELECT * FROM comentarios WHERE NOMBRE_VALOR = ?";
+        String[] selectionArgs = new String[]{nombreValor};
+        return db.rawQuery(query, selectionArgs);
     }
 
 }
