@@ -13,11 +13,10 @@ import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 
 import android.view.MenuItem;
-import android.widget.ListView;
+
 import java.util.ArrayList;
 import java.util.List;
 
-import androidx.viewpager.widget.ViewPager;
 import androidx.viewpager2.widget.ViewPager2;
 
 import com.google.android.material.navigation.NavigationView;
@@ -44,16 +43,16 @@ public class MainActivity extends AppCompatActivity {
 
         //código para llenar la info del viewpager
         viewPagerValores = findViewById(R.id.viewPager2);
-        List <Datos> lista;
-        lista = new ArrayList<Datos>();
+        List <DatosViewPager> lista;
+        lista = new ArrayList<DatosViewPager>();
 
-        lista.add(new Datos(1, "VALOR #1", "CONTENIDO TEXTO VALOR...", R.drawable.valor_test));
-        lista.add(new Datos(2, "VALOR #2", "CONTENIDO TEXTO VALOR...", R.drawable.valor_test));
-        lista.add(new Datos(3, "VALOR #3", "CONTENIDO TEXTO VALOR...", R.drawable.valor_test));
-        lista.add(new Datos(4, "VALOR #4", "CONTENIDO TEXTO VALOR...", R.drawable.valor_test));
-        lista.add(new Datos(5, "VALOR $5", "CONTENIDO TEXTO VALOR...", R.drawable.valor_test));
+        lista.add(new DatosViewPager(1, "VALOR #1", "CONTENIDO TEXTO VALOR...", R.drawable.valor_test));
+        lista.add(new DatosViewPager(2, "VALOR #2", "CONTENIDO TEXTO VALOR...", R.drawable.valor_test));
+        lista.add(new DatosViewPager(3, "VALOR #3", "CONTENIDO TEXTO VALOR...", R.drawable.valor_test));
+        lista.add(new DatosViewPager(4, "VALOR #4", "CONTENIDO TEXTO VALOR...", R.drawable.valor_test));
+        lista.add(new DatosViewPager(5, "VALOR $5", "CONTENIDO TEXTO VALOR...", R.drawable.valor_test));
 
-        Adaptador viewPagerAdaptador = new Adaptador( getSupportFragmentManager(), getLifecycle(), lista);
+        AdaptadorViewPager viewPagerAdaptador = new AdaptadorViewPager( getSupportFragmentManager(), getLifecycle(), lista);
         viewPagerValores.setAdapter(viewPagerAdaptador);
 
 

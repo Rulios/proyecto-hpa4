@@ -1,12 +1,12 @@
 package com.example.proyecto1_hpa;
 
-public class Datos {
+public class DatosViewPager {
     private int Id;
     private String Titulo;
     private String Detalle;
     private int Imagen;
 
-    public Datos(int id, String titulo, String detalle, int imagen) {
+    public DatosViewPager(int id, String titulo, String detalle, int imagen) {
         Id = id;
         Titulo = titulo;
         Detalle = detalle;
