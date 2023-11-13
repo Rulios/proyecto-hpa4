@@ -63,6 +63,7 @@ public class MainActivity extends AppCompatActivity {
         if (savedInstanceState==null){
 
         }
+
         NV.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
             @Override
             public boolean onNavigationItemSelected(@NonNull MenuItem item) {
@@ -78,6 +79,9 @@ public class MainActivity extends AppCompatActivity {
                 return true;
             }
         });
+
+        DatabaseSingleton.init(this);
+
     }
 
     @Override
