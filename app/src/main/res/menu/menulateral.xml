@@ -7,11 +7,11 @@
         android:checkableBehavior="single">
 
         <item
-            android:id="@+id/valor1"
+            android:id="@+id/V1"
             android:title="Valor1"/>
         <!--- android:icon="@drawable/recurso -->
         <item
-            android:id="@+id/valor2"
+            android:id="@+id/V2"
             android:title="Valor2"/>
         <item
             android:id="@+id/valor3"
