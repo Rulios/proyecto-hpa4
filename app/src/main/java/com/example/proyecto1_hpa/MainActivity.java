@@ -4,6 +4,7 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
 import android.os.Bundle;
 
 import android.view.Menu;
@@ -30,10 +31,23 @@ public class MainActivity extends AppCompatActivity {
 
     private ViewPager2 viewPagerValores;
 
+    String nombreUsuario;
+
+    Usuarios usuario;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+
+        Intent intent = getIntent();
+
+        nombreUsuario = intent.getStringExtra("NOMBRE");
+        //añadir código de creación del Usuarios
+        //usuario = New Usuarios(nombreUsuario);
+        //etc
+        //...
 
         TB=findViewById(R.id.TB);
         setSupportActionBar(TB);
@@ -79,7 +93,7 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-        DatabaseSingleton.init(this);
+        //DatabaseSingleton.init(this);
 
     }
 
