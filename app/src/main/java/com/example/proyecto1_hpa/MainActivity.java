@@ -80,7 +80,7 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-        DatabaseSingleton.init(this);
+
 
     }
 
@@ -88,6 +88,7 @@ public class MainActivity extends AppCompatActivity {
     public boolean onCreateOptionsMenu(Menu menu) {
         MenuInflater inflater=getMenuInflater();
         inflater.inflate(R.menu.menutoolbar, menu);
+
         return true;
     }
 }

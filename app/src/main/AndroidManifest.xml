@@ -13,6 +13,9 @@
         android:theme="@style/Theme.Proyecto1_HPA"
         tools:targetApi="31">
         <activity
+            android:name=".PantallaComentarios"
+            android:exported="false" />
+        <activity
             android:name=".MainActivity"
             android:exported="true">
             <intent-filter>
