@@ -10,9 +10,9 @@ import android.widget.TextView;
 import androidx.fragment.app.Fragment;
 
 public class ViewPagerFragment extends Fragment {
-    final Datos data;
+    final DatosViewPager data;
 
-    public ViewPagerFragment(Datos data) {
+    public ViewPagerFragment(DatosViewPager data) {
         this.data = data;
     }
 
