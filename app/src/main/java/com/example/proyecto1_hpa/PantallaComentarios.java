@@ -26,7 +26,7 @@ public class PantallaComentarios extends AppCompatActivity {
         TB2=(Toolbar) findViewById(R.id.TB2);
         setSupportActionBar(TB2);
 
-        getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_PAN);
+        getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_RESIZE);
 
     }
 
