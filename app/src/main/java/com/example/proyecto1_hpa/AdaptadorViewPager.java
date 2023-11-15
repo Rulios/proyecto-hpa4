@@ -9,9 +9,9 @@ import androidx.viewpager2.adapter.FragmentStateAdapter;
 import java.util.List;
 
 public class AdaptadorViewPager extends FragmentStateAdapter {
-    private final List<DatosViewPager> dataList;
+    private final List<Valores> dataList;
 
-    public AdaptadorViewPager(FragmentManager fragmentManager, Lifecycle lifecycle, List<DatosViewPager> dataList) {
+    public AdaptadorViewPager(FragmentManager fragmentManager, Lifecycle lifecycle, List<Valores> dataList) {
         super(fragmentManager, lifecycle);
         this.dataList = dataList;
     }
@@ -24,7 +24,7 @@ public class AdaptadorViewPager extends FragmentStateAdapter {
     @NonNull
     @Override
     public Fragment createFragment(int position) {
-        DatosViewPager data = dataList.get(position);
+        Valores data = dataList.get(position);
         return new ViewPagerFragment(data);
     }
 }

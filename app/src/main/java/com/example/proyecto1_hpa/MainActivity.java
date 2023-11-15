@@ -5,6 +5,7 @@ import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
+import android.database.Cursor;
 import android.os.Bundle;
 
 import android.view.Menu;
@@ -58,14 +59,34 @@ public class MainActivity extends AppCompatActivity {
 
         //código para llenar la info del viewpager
         viewPagerValores = findViewById(R.id.viewPager2);
-        List <DatosViewPager> lista;
-        lista = new ArrayList<DatosViewPager>();
+        List <Valores> lista;
+        lista = new ArrayList<Valores>();
 
-        lista.add(new DatosViewPager(1, "VALOR #1", "CONTENIDO TEXTO VALOR...", R.drawable.valor_test));
-        lista.add(new DatosViewPager(2, "VALOR #2", "CONTENIDO TEXTO VALOR...", R.drawable.valor_test));
-        lista.add(new DatosViewPager(3, "VALOR #3", "CONTENIDO TEXTO VALOR...", R.drawable.valor_test));
-        lista.add(new DatosViewPager(4, "VALOR #4", "CONTENIDO TEXTO VALOR...", R.drawable.valor_test));
-        lista.add(new DatosViewPager(5, "VALOR $5", "CONTENIDO TEXTO VALOR...", R.drawable.valor_test));
+        lista.add(new Valores("VALOR #1", "CONTENIDO TEXTO VALOR...", R.drawable.valor_test));
+        lista.add(new Valores("VALOR #2", "CONTENIDO TEXTO VALOR...", R.drawable.valor_test));
+        lista.add(new Valores("VALOR #3", "CONTENIDO TEXTO VALOR...", R.drawable.valor_test));
+        lista.add(new Valores("VALOR #4", "CONTENIDO TEXTO VALOR...", R.drawable.valor_test));
+        lista.add(new Valores("VALOR #5", "CONTENIDO TEXTO VALOR...", R.drawable.valor_test));
+
+        for (Valores valor: lista) {
+            valor.save();
+        }
+
+        /*
+        lista.get(0).setDescripcion("Cambie la descripción del valor uno y lo actualice en la bd");
+
+        Cursor c = Valores.getAllValores();
+        if (c.moveToFirst()){
+            try {
+                lista.get(1).setDescripcion(c.getString(2));
+            } catch (Exception e){
+                c.moveToLast();
+                c.close();
+            }
+
+        }
+
+         */
 
         AdaptadorViewPager viewPagerAdaptador = new AdaptadorViewPager( getSupportFragmentManager(), getLifecycle(), lista);
         viewPagerValores.setAdapter(viewPagerAdaptador);
