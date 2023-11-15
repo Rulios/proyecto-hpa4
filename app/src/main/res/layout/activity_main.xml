@@ -10,31 +10,32 @@
     tools:openDrawer="start"
     tools:context=".MainActivity">
 
-    <LinearLayout
+    <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:orientation="vertical">
+        android:layout_height="match_parent">
 
-    <androidx.appcompat.widget.Toolbar
-        android:id="@+id/TB"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="1dp"
-        android:background="?attr/colorPrimary"
-        android:minHeight="?attr/actionBarSize"
-        android:theme="?attr/actionBarTheme"
-        app:layout_constraintBottom_toTopOf="@+id/viewPager2"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:title="Valores"
-        app:titleTextColor="#FFFFFF" />
+        <androidx.appcompat.widget.Toolbar
+            android:id="@+id/TB"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="1dp"
+            android:background="?attr/colorPrimary"
+            android:minHeight="?attr/actionBarSize"
+            android:theme="?attr/actionBarTheme"
+            app:layout_constraintBottom_toTopOf="@+id/viewPager2"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:title="Valores"
+            app:titleTextColor="#FFFFFF" />
 
         <androidx.viewpager2.widget.ViewPager2
             android:id="@+id/viewPager2"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_width="410dp"
+            android:layout_height="669dp"
+            android:layout_below="@+id/TB"
             android:layout_marginStart="1dp"
+            android:layout_marginTop="-2dp"
             android:layout_marginEnd="1dp"
             android:layout_marginBottom="1dp"
             app:layout_constraintBottom_toBottomOf="parent"
@@ -42,13 +43,26 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/TB" />
 
-    </LinearLayout>
-    
+        <com.google.android.material.floatingactionbutton.FloatingActionButton
+            android:id="@+id/FAB"
+            style="@style/Widget.MaterialComponents.FloatingActionButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentBottom="true"
+            android:layout_margin="22dp"
+            android:contentDescription="@string/fab_transformation_scrim_behavior"
+            app:srcCompat="@drawable/comentarioicon" />
+    </RelativeLayout>
+
     <com.google.android.material.navigation.NavigationView
+        android:id="@+id/NV"
         android:layout_width="wrap_content"
         android:layout_height="match_parent"
-        android:id="@+id/NV"
         android:layout_gravity="start"
-        app:menu="@menu/menulateral"/>
+        app:menu="@menu/menulateral" />
+
+
+
 
 </androidx.drawerlayout.widget.DrawerLayout>

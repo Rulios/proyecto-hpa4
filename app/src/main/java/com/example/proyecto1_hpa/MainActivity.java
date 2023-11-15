@@ -15,12 +15,14 @@ import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 
 import android.view.MenuItem;
+import android.view.View;
 
 import java.util.ArrayList;
 import java.util.List;
 
 import androidx.viewpager2.widget.ViewPager2;
 
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.navigation.NavigationView;
 
 public class MainActivity extends AppCompatActivity {
@@ -31,6 +33,8 @@ public class MainActivity extends AppCompatActivity {
     private NavigationView NV;
 
     private ViewPager2 viewPagerValores;
+
+    FloatingActionButton FAB;
 
     String nombreUsuario;
 
@@ -44,6 +48,7 @@ public class MainActivity extends AppCompatActivity {
         DatabaseSingleton.init(this);
 
         Intent intent = getIntent();
+        Intent intentComentarios=new Intent(MainActivity.this, PantallaComentarios.class);
 
         nombreUsuario = intent.getStringExtra("NOMBRE");
         //añadir código de creación del Usuarios
@@ -55,7 +60,7 @@ public class MainActivity extends AppCompatActivity {
         setSupportActionBar(TB);
         DL=(DrawerLayout) findViewById(R.id.DL);
         NV=(NavigationView)findViewById(R.id.NV);
-
+        FAB=(FloatingActionButton) findViewById(R.id.FAB);
 
         //código para llenar la info del viewpager
         viewPagerValores = findViewById(R.id.viewPager2);
@@ -117,6 +122,15 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
+        FAB.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                intentComentarios.putExtra("NOMBRE", nombreUsuario);
+                startActivity(intentComentarios);
+
+
+            }
+        });
 
     }
 
@@ -124,7 +138,17 @@ public class MainActivity extends AppCompatActivity {
     public boolean onCreateOptionsMenu(Menu menu) {
         MenuInflater inflater=getMenuInflater();
         inflater.inflate(R.menu.menutoolbar, menu);
-
         return true;
     }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item){
+        if(item.getItemId()==R.id.close)
+        {
+            Intent intentRegresar=new Intent(MainActivity.this, SetNameActivity.class);
+            startActivity(intentRegresar);
+        }
+        return true;
+    }
+
 }
