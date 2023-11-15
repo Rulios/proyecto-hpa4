@@ -28,7 +28,6 @@ public class Database extends SQLiteOpenHelper {
                 "NOMBRE_VALOR TEXT NOT NULL, " +
                 "DESCRIPCION TEXT NOT NULL,"+
                 "FECHA TEXT NOT NULL,"+
-                "HORA TEXT NOT NULL,"+
                 "PRIMARY KEY (USERNAME, NOMBRE_VALOR), " +
                 "FOREIGN KEY (USERNAME) REFERENCES usuarios (USERNAME) ON DELETE CASCADE, " +
                 "FOREIGN KEY (NOMBRE_VALOR) REFERENCES valores (NOMBRE_VALOR) ON DELETE CASCADE " +
