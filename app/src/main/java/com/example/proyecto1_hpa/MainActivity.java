@@ -73,6 +73,8 @@ public class MainActivity extends AppCompatActivity {
         }
 
         /*
+        Lo borró luego
+
         lista.get(0).setDescripcion("Cambie la descripción del valor uno y lo actualice en la bd");
 
         Cursor c = Valores.getAllValores();
