@@ -117,5 +117,14 @@ public class MainActivity extends AppCompatActivity {
         return true;
     }
 
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item){
+        if(item.getItemId()==R.id.close)
+        {
+            Intent intentRegresar=new Intent(MainActivity.this, SetNameActivity.class);
+            startActivity(intentRegresar);
+        }
+        return true;
+    }
 
 }

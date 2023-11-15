@@ -6,67 +6,55 @@
     android:layout_height="match_parent"
     tools:context=".PantallaComentarios">
 
-    <androidx.appcompat.widget.Toolbar
-        android:id="@+id/TB2"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="1dp"
-        android:background="?attr/colorPrimary"
-        android:minHeight="?attr/actionBarSize"
-        android:theme="?attr/actionBarTheme"
-        app:layout_constraintBottom_toTopOf="@+id/linearLayout2"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:title="Comentarios"
-        app:titleTextColor="#FFFFFF" />
-
-    <LinearLayout
-        android:id="@+id/linearLayout2"
+    <RelativeLayout
+        android:id="@+id/relativeLayout"
         android:layout_width="0dp"
         android:layout_height="0dp"
-        android:layout_marginStart="1dp"
-        android:layout_marginEnd="1dp"
-        android:layout_marginBottom="1dp"
-        android:gravity="right"
-        android:orientation="vertical"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/TB2">
+        app:layout_constraintTop_toTopOf="parent">
 
-        <LinearLayout
+        <androidx.appcompat.widget.Toolbar
+            android:id="@+id/TB2"
             android:layout_width="match_parent"
-            android:layout_height="500dp"
-            android:orientation="vertical">
+            android:layout_height="wrap_content"
+            android:background="?attr/colorPrimary"
+            android:minHeight="?attr/actionBarSize"
+            android:theme="?attr/actionBarTheme"
+            app:title="Comentarios"
+            app:titleTextColor="#FFFFFF" />
 
-            <ListView
-                android:layout_width="match_parent"
-                android:layout_height="match_parent" />
-        </LinearLayout>
-
-        <View
-            android:id="@+id/divider"
+        <ListView
+            android:id="@+id/_dynamic"
             android:layout_width="match_parent"
-            android:layout_height="2dp"
-            android:background="?android:attr/listDivider" />
+            android:layout_height="574dp"
+            android:layout_below="@+id/TB2"
+            android:layout_marginTop="0dp" />
 
         <EditText
             android:id="@+id/ETcoment"
             android:layout_width="match_parent"
-            android:layout_height="9dp"
-            android:layout_weight="1"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/_dynamic"
+            android:layout_marginTop="0dp"
+            android:height="48dp"
             android:ems="10"
+            android:fadeScrollbars="false"
             android:hint="Añade un comentario"
-            android:inputType="text"
-            android:maxLines="6" />
+            android:inputType="text|textMultiLine"
+            android:lines="1"
+            android:scrollbars="vertical" />
 
         <Button
             android:id="@+id/BTNcoment"
             android:layout_width="141dp"
-            android:layout_height="wrap_content"
+            android:layout_height="48dp"
+            android:layout_below="@+id/ETcoment"
+            android:layout_alignParentEnd="true"
+            android:layout_marginTop="0dp"
+            android:layout_marginEnd="0dp"
             android:text="Comentar" />
-
-    </LinearLayout>
+    </RelativeLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
