@@ -21,8 +21,13 @@ public class Usuarios {
         return username;
     }
     public void setUsername(String username) {
+        int id = getId();
         this.username = username;
-        this.update();
+        if (id == -1){
+            throw new IllegalStateException("Este usuario no esta registrado en la bd: "+this.username);
+        } else {
+            update(id);
+        }
     }
     public void save() {
         ContentValues contentValues = new ContentValues();
@@ -31,17 +36,17 @@ public class Usuarios {
         db.insert("usuarios", null, contentValues);
     }
 
-    private void update() {
+    private void update(int id) {
         ContentValues contentValues = new ContentValues();
         contentValues.put("USERNAME", this.username);
-        db.update("usuarios", contentValues, "USERNAME = ?", new String[]{this.username});
+        db.update("usuarios", contentValues, "_id = ?", new String[]{String.valueOf(id)});
     }
 
     public void delete() {
         db.delete("usuarios", "USERNAME = ?", new String[]{this.username});
     }
     @SuppressLint("Range")
-    public long getId(){
+    private int getId(){
 
         String[] columns = new String[] {"_id"};
         String selection = "USERNAME = ?";

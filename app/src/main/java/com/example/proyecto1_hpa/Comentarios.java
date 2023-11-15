@@ -5,27 +5,24 @@ import android.content.ContentValues;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 
-import java.time.LocalDate;
-import java.time.LocalTime;
+
+import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
 public class Comentarios {
-    DateTimeFormatter dayFormatter = DateTimeFormatter.ofPattern("dd-MM-yyyy");
-    DateTimeFormatter timeFormatter = DateTimeFormatter.ofPattern("HH:mm");
+    LocalDateTime fecha;
+    DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm");
     private final SQLiteDatabase db;
     private final String username;
     private final String nombre_valor;
     private String descripcion;
-    private LocalDate fecha;
-    private LocalTime hora;
 
-    public Comentarios(String username, String valor, String descripcion, LocalDate fecha, LocalTime hora) {
+    public Comentarios(String username, String valor, String descripcion) {
         this.db = DatabaseSingleton.getDatabase();
         this.username = username;
         this.nombre_valor = valor;
         this.descripcion = descripcion;
-        this.fecha = fecha;
-        this.hora = hora;
+        this.fecha = LocalDateTime.now();
     }
 
     public String getUsername() {
@@ -45,35 +42,31 @@ public class Comentarios {
     }
     public void save() {
         ContentValues contentValues = new ContentValues();
-        String fechaStr = this.fecha.format(dayFormatter);
-        String horaStr = this.hora.format(timeFormatter);
+        String fechaStr = fecha.format(formatter);
 
         contentValues.put("USERNAME", this.username);
         contentValues.put("NOMBRE_VALOR", this.nombre_valor);
         contentValues.put("DESCRIPCION", this.descripcion);
         contentValues.put("FECHA", fechaStr);
-        contentValues.put("HORA", horaStr);
 
         db.insert("comentarios", null, contentValues);
     }
 
     private void update() {
         ContentValues contentValues = new ContentValues();
-        this.fecha = LocalDate.now();
-        this.hora = LocalTime.now();
+        this.fecha = LocalDateTime.now();
 
-        String fechaStr = this.fecha.format(dayFormatter);
-        String horaStr = this.hora.format(timeFormatter);
+
+        String fechaStr = this.fecha.format(formatter);
 
         contentValues.put("DESCRIPCION", this.descripcion);
         contentValues.put("FECHA", fechaStr);
-        contentValues.put("HORA", horaStr);
 
         db.update("comentarios", contentValues, "USERNAME = ?", new String[]{this.username});
     }
 
     @SuppressLint("Range")
-    public static int getCommentId(String username, String nombre_valor) {
+    public static int getId(String username, String nombre_valor) {
         SQLiteDatabase db = DatabaseSingleton.getDatabase();
         String[] columns = new String[] {"_id"};
         String selection = "USERNAME = ? AND NOMBRE_VALOR = ?";
@@ -92,7 +85,7 @@ public class Comentarios {
     }
 
     public void delete() {
-        int id = Comentarios.getCommentId(this.username, this.nombre_valor);
+        int id = Comentarios.getId(this.username, this.nombre_valor);
         db.delete("comentarios", "_id = ?", new String[]{String.valueOf(id)});
     }
     public static Cursor getAllComments(String nombreValor) {

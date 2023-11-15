@@ -22,7 +22,13 @@ public class Valores {
     }
 
     public void setNombre(String nombre) {
+        int id = getId();
         this.nombre = nombre;
+        if (id == -1){
+            throw new IllegalStateException("Este valor no esta registrado en la bd: "+this.nombre);
+        } else {
+            update(id);
+        }
     }
 
     public String getDescripcion() {
@@ -30,7 +36,13 @@ public class Valores {
     }
 
     public void setDescripcion(String descripcion) {
+        int id = getId();
         this.descripcion = descripcion;
+        if (id == -1){
+            throw new IllegalStateException("Este valor no esta registrado en la bd: "+this.nombre);
+        } else {
+            update(id);
+        }
     }
 
     public int getImagen() {
@@ -49,11 +61,11 @@ public class Valores {
         db.insert("valores", null, contentValues);
     }
 
-    private void update() {
+    private void update(int id) {
         ContentValues contentValues = new ContentValues();
         contentValues.put("NOMBRE_VALOR", this.nombre);
         contentValues.put("DESCRIPCION", this.descripcion);
-        db.update("valores", contentValues, "NOMBRE_VALOR = ?", new String[]{this.nombre});
+        db.update("valores", contentValues, "_id = ?", new String[]{String.valueOf(id)});
     }
 
     public void delete() {
@@ -61,7 +73,7 @@ public class Valores {
     }
 
     @SuppressLint("Range")
-    public long getId(){
+    private int getId(){
 
         String[] columns = new String[] {"_id"};
         String selection = "NOMBRE_VALOR = ?";

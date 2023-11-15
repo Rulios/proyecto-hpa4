@@ -10,9 +10,9 @@ import android.widget.TextView;
 import androidx.fragment.app.Fragment;
 
 public class ViewPagerFragment extends Fragment {
-    final DatosViewPager data;
+    final Valores data;
 
-    public ViewPagerFragment(DatosViewPager data) {
+    public ViewPagerFragment(Valores data) {
         this.data = data;
     }
 
@@ -26,8 +26,8 @@ public class ViewPagerFragment extends Fragment {
         TextView descriptionTextView = view.findViewById(R.id.textView2);
         ImageView imagen = view.findViewById(R.id.imageView);
 
-        titleTextView.setText(data.getTitulo());
-        descriptionTextView.setText(data.getDetalle());
+        titleTextView.setText(data.getNombre());
+        descriptionTextView.setText(data.getDescripcion());
         imagen.setImageResource(data.getImagen());
 
         return view;
