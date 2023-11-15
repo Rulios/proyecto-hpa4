@@ -21,8 +21,8 @@ public class Database extends SQLiteOpenHelper {
     @Override
     public void onCreate(SQLiteDatabase db) {
         // Código para crear las tablas
-        db.execSQL("Create table usuarios (_id PRIMARY KEY AUTOINCREMENT, USERNAME TEXT UNIQUE);");
-        db.execSQL("Create table valores (_id PRIMARY KEY AUTOINCREMENT, NOMBRE_VALOR TEXT UNIQUE, DESCRIPCION TEXT);");
+        db.execSQL("Create table usuarios (_id INTEGER PRIMARY KEY AUTOINCREMENT, USERNAME TEXT UNIQUE);");
+        db.execSQL("Create table valores (_id INTEGER PRIMARY KEY AUTOINCREMENT, NOMBRE_VALOR TEXT UNIQUE, DESCRIPCION TEXT);");
         db.execSQL("CREATE TABLE comentarios (" +
                 "USERNAME TEXT NOT NULL, " +
                 "NOMBRE_VALOR TEXT NOT NULL, " +
