@@ -8,6 +8,7 @@ import android.content.Intent;
 import android.database.Cursor;
 import android.os.Bundle;
 
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import androidx.appcompat.widget.Toolbar;
@@ -16,6 +17,7 @@ import androidx.drawerlayout.widget.DrawerLayout;
 
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.ProgressBar;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -40,6 +42,8 @@ public class MainActivity extends AppCompatActivity {
 
     Usuarios usuario;
 
+    ProgressBar progressBar;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -61,17 +65,18 @@ public class MainActivity extends AppCompatActivity {
         DL=(DrawerLayout) findViewById(R.id.DL);
         NV=(NavigationView)findViewById(R.id.NV);
         FAB=(FloatingActionButton) findViewById(R.id.FAB);
+        progressBar = findViewById(R.id.progressBar);
 
         //código para llenar la info del viewpager
         viewPagerValores = findViewById(R.id.viewPager2);
         List <Valores> lista;
         lista = new ArrayList<Valores>();
 
-        lista.add(new Valores("VALOR #1", "CONTENIDO TEXTO VALOR...", R.drawable.valor_test));
-        lista.add(new Valores("VALOR #2", "CONTENIDO TEXTO VALOR...", R.drawable.valor_test));
-        lista.add(new Valores("VALOR #3", "CONTENIDO TEXTO VALOR...", R.drawable.valor_test));
-        lista.add(new Valores("VALOR #4", "CONTENIDO TEXTO VALOR...", R.drawable.valor_test));
-        lista.add(new Valores("VALOR #5", "CONTENIDO TEXTO VALOR...", R.drawable.valor_test));
+        lista.add(new Valores("Respeto", "El respeto es la consideración y valoración especial positiva ante alguien o algo, al que se le reconoce valor social o especial deferencia. Transmite una sensación de admiración por las cualidades buenas o valiosas.", R.drawable.valor_respeto));
+        lista.add(new Valores("Responsabilidad", "  Responsabilidad es dar cumplimiento a las obligaciones y ser cuidadoso al tomar decisiones o al realizar algo. La responsabilidad es también el hecho de ser responsable de alguien o de algo.", R.drawable.valor_responsabilidad));
+        lista.add(new Valores("Honestidad", "Se entiende por honestidad u honradez a una virtud humana consistente en el amor a la justicia y la verdad por encima del beneficio personal o de la conveniencia.", R.drawable.valor_honestidad));
+        lista.add(new Valores("Tolerancia", "La tolerancia es la actitud de la persona que respeta las opiniones, ideas o actitudes de las demás personas aunque no coincidan con las propias.", R.drawable.valor_tolerancia));
+        lista.add(new Valores("Amor", "  El amor es el vínculo de afecto que nace de la valoración del otro e inspira el deseo de su bien. Puede verse como un valor o como una propiedad de las relaciones humanas.", R.drawable.valor_amor));
 
         for (Valores valor: lista) {
             valor.save();
@@ -99,12 +104,22 @@ public class MainActivity extends AppCompatActivity {
         viewPagerValores.setAdapter(viewPagerAdaptador);
 
 
+
         ActionBarDrawerToggle toggle=new ActionBarDrawerToggle(this, DL, TB, R.string.open_nav, R.string.close_nav);
         DL.addDrawerListener(toggle);
         toggle.syncState();
         if (savedInstanceState==null){
 
         }
+
+        viewPagerValores.registerOnPageChangeCallback(new ViewPager2.OnPageChangeCallback() {
+            @Override
+            public void onPageSelected(int position) {
+                super.onPageSelected(position);
+                progressBar.setProgress(position + 1);
+                Log.d("Slide position ", "valor: " + position);
+            }
+        });
 
         NV.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
             @Override
@@ -116,6 +131,15 @@ public class MainActivity extends AppCompatActivity {
                 else if (item.getItemId()==R.id.V2)
                 {
                     viewPagerValores.setCurrentItem(1);
+                }else if (item.getItemId()==R.id.V3)
+                {
+                    viewPagerValores.setCurrentItem(2);
+                }else if (item.getItemId()==R.id.V4)
+                {
+                    viewPagerValores.setCurrentItem(3);
+                }else if (item.getItemId()==R.id.V5)
+                {
+                    viewPagerValores.setCurrentItem(4);
                 }
                 DL.closeDrawer(GravityCompat.START);
                 return true;
