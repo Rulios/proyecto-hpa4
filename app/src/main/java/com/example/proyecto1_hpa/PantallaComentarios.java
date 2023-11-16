@@ -15,6 +15,7 @@ public class PantallaComentarios extends AppCompatActivity {
 
     Toolbar TB2;
     String nombreUsuario;
+    SoftInputAssist SIA;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -22,6 +23,7 @@ public class PantallaComentarios extends AppCompatActivity {
 
         Intent intent = getIntent();
         nombreUsuario = intent.getStringExtra("NOMBRE");
+        SIA=new SoftInputAssist(this);
 
         TB2=(Toolbar) findViewById(R.id.TB2);
         setSupportActionBar(TB2);
@@ -48,6 +50,24 @@ public class PantallaComentarios extends AppCompatActivity {
             startActivity(intentRegresarVal);
         }
         return true;
+    }
+
+    @Override
+    protected void onResume(){
+        SIA.onResume();
+        super.onResume();
+    }
+
+    @Override
+    protected void onPause(){
+        SIA.onPause();
+        super.onPause();
+    }
+
+    @Override
+    protected void onDestroy(){
+        SIA.onDestroy();
+        super.onDestroy();
     }
 
 }
