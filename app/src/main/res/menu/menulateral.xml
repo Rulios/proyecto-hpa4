@@ -8,17 +8,24 @@
 
         <item
             android:id="@+id/V1"
-            android:title="Valor1"/>
+            android:title="Respeto" />
         <!--- android:icon="@drawable/recurso -->
         <item
             android:id="@+id/V2"
-            android:title="Valor2"/>
+            android:title="Responsabilidad" />
         <item
-            android:id="@+id/valor3"
-            android:title="Valor3"/>
+            android:id="@+id/V3"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:title="Honestidad" />
         <item
-            android:id="@+id/valor4"
-            android:title="Valor5"/>
+            android:id="@+id/V4"
+            android:title="Tolerancia" />
+        <item
+            android:id="@+id/V5"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:title="Amor" />
 
     </group>
 
