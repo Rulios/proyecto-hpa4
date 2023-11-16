@@ -10,6 +10,7 @@
         android:id="@+id/relativeLayout"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
+        android:gravity="center"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
@@ -27,16 +28,18 @@
         <ListView
             android:id="@+id/_dynamic"
             android:layout_width="match_parent"
-            android:layout_height="574dp"
+            android:layout_height="wrap_content"
+            android:layout_above="@+id/ETcoment"
             android:layout_below="@+id/TB2"
-            android:layout_marginTop="0dp" />
+            android:layout_marginTop="0dp"
+            android:layout_marginBottom="0dp" />
 
         <EditText
             android:id="@+id/ETcoment"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_below="@id/_dynamic"
-            android:layout_marginTop="0dp"
+            android:layout_above="@+id/BTNcoment"
+            android:layout_marginBottom="0dp"
             android:height="48dp"
             android:ems="10"
             android:fadeScrollbars="false"
@@ -49,7 +52,6 @@
             android:id="@+id/BTNcoment"
             android:layout_width="141dp"
             android:layout_height="48dp"
-            android:layout_below="@+id/ETcoment"
             android:layout_alignParentEnd="true"
             android:layout_alignParentBottom="true"
             android:layout_marginTop="0dp"
