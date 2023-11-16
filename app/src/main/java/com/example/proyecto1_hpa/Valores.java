@@ -2,8 +2,10 @@ package com.example.proyecto1_hpa;
 
 import android.annotation.SuppressLint;
 import android.content.ContentValues;
+import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
+import android.widget.Toast;
 
 public class Valores {
     private final SQLiteDatabase db;
@@ -54,11 +56,16 @@ public class Valores {
     }
 
     public void save() {
-        ContentValues contentValues = new ContentValues();
-        contentValues.put("NOMBRE_VALOR", this.nombre);
-        contentValues.put("DESCRIPCION", this.descripcion);
+        Cursor c = Valores.findByNombre(this.nombre);
+        if (!c.moveToFirst()){
+            ContentValues contentValues = new ContentValues();
+            contentValues.put("NOMBRE_VALOR", this.nombre);
+            contentValues.put("DESCRIPCION", this.descripcion);
 
-        db.insert("valores", null, contentValues);
+            db.insert("valores", null, contentValues);
+
+        }
+        c.close();
     }
 
     private void update(int id) {
@@ -73,7 +80,7 @@ public class Valores {
     }
 
     @SuppressLint("Range")
-    private int getId(){
+    public int getId(){
 
         String[] columns = new String[] {"_id"};
         String selection = "NOMBRE_VALOR = ?";
@@ -90,6 +97,23 @@ public class Valores {
         }
     }
 
+    public static String findNameById(int id){
+        SQLiteDatabase db = DatabaseSingleton.getDatabase();
+        String[] columns = new String[] {"NOMBRE_VALOR"};
+        String selection = "_id = ?";
+        String[] selectionArgs = new String[]{String.valueOf(id)};
+
+        Cursor c = db.query("valores", columns, selection, selectionArgs, null, null, null, "1");
+        if (c.moveToFirst()){
+            int columnIndex = c.getColumnIndex("NOMBRE_VALOR");
+            String valor = c.getString(columnIndex);
+            c.close();
+            return  valor;
+        } else {
+            c.close();
+            return null;
+        }
+    }
     public static Cursor findByNombre(String nombre_valor) {
         SQLiteDatabase db = DatabaseSingleton.getDatabase();
         String[] columns = new String[] {"NOMBRE_VALOR"};

@@ -30,10 +30,14 @@ public class Usuarios {
         }
     }
     public void save() {
-        ContentValues contentValues = new ContentValues();
-        contentValues.put("USERNAME", this.username);
+        String user = Usuarios.findByUsername(this.username);
+        if (user == null){
+            ContentValues contentValues = new ContentValues();
+            contentValues.put("USERNAME", this.username);
 
-        db.insert("usuarios", null, contentValues);
+            db.insert("usuarios", null, contentValues);
+        }
+
     }
 
     private void update(int id) {
@@ -45,7 +49,7 @@ public class Usuarios {
     public void delete() {
         db.delete("usuarios", "USERNAME = ?", new String[]{this.username});
     }
-    @SuppressLint("Range")
+
     private int getId(){
 
         String[] columns = new String[] {"_id"};
@@ -54,7 +58,8 @@ public class Usuarios {
 
         Cursor c = db.query("usuarios", columns, selection, selectionArgs, null, null, null, "1");
         if (c.moveToFirst()) {
-            int id = c.getInt(c.getColumnIndex("_id"));
+            int columnIndex = c.getColumnIndex("USERNAME");
+            int id = c.getInt(columnIndex);
             c.close();
             return  id;
         } else {
@@ -63,13 +68,23 @@ public class Usuarios {
         }
     }
 
-    public static Cursor findByUsername(String username) {
+    public static String findByUsername(String username) {
         SQLiteDatabase db = DatabaseSingleton.getDatabase();
         String[] columns = new String[] {"USERNAME"};
         String selection = "USERNAME = ?";
         String[] selectionArgs = new String[]{username};
 
-        return db.query("usuarios", columns, selection, selectionArgs, null, null, null, "1");
+        Cursor c = db.query("usuarios", columns, selection, selectionArgs, null, null, null, "1");
+
+        if (c.moveToFirst()) {
+            int columnIndex = c.getColumnIndex("USERNAME");
+            String user = c.getString(columnIndex);
+            c.close();
+            return  user;
+        } else {
+            c.close();
+            return null;
+        }
     }
     public static Cursor getAllUsers() {
         SQLiteDatabase db = DatabaseSingleton.getDatabase();

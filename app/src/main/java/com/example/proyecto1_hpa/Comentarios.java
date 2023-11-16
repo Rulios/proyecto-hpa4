@@ -8,33 +8,39 @@ import android.database.sqlite.SQLiteDatabase;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
 
 public class Comentarios {
-    LocalDateTime fecha;
     DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm");
     private final SQLiteDatabase db;
     private final String username;
     private final String nombre_valor;
+
+    private String fechaStr;
+
     private String descripcion;
+    LocalDateTime fecha;
+
 
     public Comentarios(String username, String valor, String descripcion) {
         this.db = DatabaseSingleton.getDatabase();
         this.username = username;
         this.nombre_valor = valor;
         this.descripcion = descripcion;
-        this.fecha = LocalDateTime.now();
     }
 
     public String getUsername() {
         return username;
     }
-
     public String getNombre_valor() {
         return nombre_valor;
     }
-
     public String getDescripcion() {
         return descripcion;
+    }
+    public String getFecha() { return fechaStr; }
+    public void setFechaStr(String fechaStr) {
+        this.fechaStr = fechaStr;
     }
 
     public void setDescripcion(String descripcion) {
@@ -42,7 +48,8 @@ public class Comentarios {
     }
     public void save() {
         ContentValues contentValues = new ContentValues();
-        String fechaStr = fecha.format(formatter);
+        this.fecha = LocalDateTime.now();
+        fechaStr = fecha.format(formatter);
 
         contentValues.put("USERNAME", this.username);
         contentValues.put("NOMBRE_VALOR", this.nombre_valor);
@@ -57,7 +64,7 @@ public class Comentarios {
         this.fecha = LocalDateTime.now();
 
 
-        String fechaStr = this.fecha.format(formatter);
+        fechaStr = this.fecha.format(formatter);
 
         contentValues.put("DESCRIPCION", this.descripcion);
         contentValues.put("FECHA", fechaStr);
@@ -88,11 +95,33 @@ public class Comentarios {
         int id = Comentarios.getId(this.username, this.nombre_valor);
         db.delete("comentarios", "_id = ?", new String[]{String.valueOf(id)});
     }
-    public static Cursor getAllComments(String nombreValor) {
+
+    @SuppressLint("Range")
+    public static ArrayList<Comentarios> getAllComments(String nombreValor) {
+        if (nombreValor == null){
+            return null;
+        }
+
         SQLiteDatabase db = DatabaseSingleton.getDatabase();
         String query = "SELECT * FROM comentarios WHERE NOMBRE_VALOR = ?";
         String[] selectionArgs = new String[]{nombreValor};
-        return db.rawQuery(query, selectionArgs);
+        Cursor cursor = db.rawQuery(query, selectionArgs);
+
+        ArrayList<Comentarios> listaComentarios = new ArrayList<>();
+        while (cursor.moveToNext()) {
+            String username = cursor.getString(cursor.getColumnIndex("USERNAME"));
+            String descripcion = cursor.getString(cursor.getColumnIndex("DESCRIPCION"));
+            String fecha = cursor.getString(cursor.getColumnIndex("FECHA"));
+            String valor = cursor.getString(cursor.getColumnIndex("NOMBRE_VALOR"));
+
+            Comentarios comentario = new Comentarios(username, valor, descripcion);
+            comentario.setFechaStr(fecha);
+
+            listaComentarios.add(comentario);
+        }
+        cursor.close();
+
+        return listaComentarios;
     }
 
 }
