@@ -16,7 +16,6 @@ public class ViewPagerFragment extends Fragment {
         this.data = data;
     }
 
-
     @Override
     public View onCreateView( LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.informacion, container, false);
