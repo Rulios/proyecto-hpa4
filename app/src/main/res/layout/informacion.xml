@@ -23,8 +23,10 @@
             android:id="@+id/textView"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:paddingLeft="10dp"
+            android:paddingTop="10dp"
             android:text="Titulo"
-            android:textSize="60sp" />
+            android:textSize="45sp" />
 
         <ImageView
             android:id="@+id/imageView"
@@ -36,6 +38,7 @@
             android:id="@+id/textView2"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:padding="10dp"
             android:text="LoremIpsumLoremIpsumLoremIpsumLoremIpsumLoremIpsumLoremIpsumLoremIpsumLoremIpsumLoremIpsumLoremIpsumLoremIpsumLoremIpsumLoremIpsumLoremIpsumLoremIpsumLoremIpsumLoremIpsum" />
     </LinearLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>
