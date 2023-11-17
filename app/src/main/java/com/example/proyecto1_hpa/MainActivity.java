@@ -1,5 +1,6 @@
 package com.example.proyecto1_hpa;
 
+import androidx.annotation.DrawableRes;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.appcompat.app.AppCompatActivity;
@@ -8,10 +9,12 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.database.Cursor;
+
 import android.hardware.Sensor;
 import android.hardware.SensorEvent;
 import android.hardware.SensorEventListener;
 import android.hardware.SensorManager;
+import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 
 import android.util.Log;
@@ -24,6 +27,7 @@ import androidx.drawerlayout.widget.DrawerLayout;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ProgressBar;
+import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -33,8 +37,13 @@ import androidx.viewpager2.widget.ViewPager2;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.navigation.NavigationView;
 
+
 public class MainActivity extends AppCompatActivity implements SensorEventListener {
 
+public class MainActivity extends AppCompatActivity {
+    private static final String PREFS_NAME = "PrefsUserSesion";
+    private static final String KEY_USERNAME = "username";
+    SharedPreferences prefs;
     private Toolbar TB;
     private DrawerLayout DL;
 
@@ -44,7 +53,7 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
 
     FloatingActionButton FAB;
 
-    String nombreUsuario;
+    String nombreUsuario, nombre_valor;
 
     Usuarios usuario;
 
@@ -71,6 +80,7 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
 
         setContentView(R.layout.activity_main);
 
+
         // SENSOR, TEMAS
 
         sensorManager = (SensorManager) getSystemService(Context.SENSOR_SERVICE);
@@ -81,18 +91,25 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
         // SENSOR, TEMAS, FIN
 
         DatabaseSingleton.init(this);
+        DatabaseSingleton.getDatabase();
 
-        Intent intent = getIntent();
+        prefs = getSharedPreferences(PREFS_NAME, MODE_PRIVATE);
+        nombreUsuario = prefs.getString(KEY_USERNAME, null);
+
+        //Intent intent = getIntent();
         Intent intentComentarios=new Intent(MainActivity.this, PantallaComentarios.class);
 
-        nombreUsuario = intent.getStringExtra("NOMBRE");
+        //nombreUsuario = intent.getStringExtra("NOMBRE");
         //añadir código de creación del Usuarios
         //usuario = New Usuarios(nombreUsuario);
         //etc
         //...
+        SQLiteDatabase db = DatabaseSingleton.getDatabase();
 
         TB=findViewById(R.id.TB);
         setSupportActionBar(TB);
+
+
         DL=(DrawerLayout) findViewById(R.id.DL);
         NV=(NavigationView)findViewById(R.id.NV);
         FAB=(FloatingActionButton) findViewById(R.id.FAB);
@@ -306,6 +323,9 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
                 super.onPageSelected(position);
                 progressBar.setProgress(position + 1);
                 Log.d("Slide position ", "valor: " + position);
+                nombre_valor = Valores.findNameById(position+1);
+                Log.d("Nombre ", "valor: " + nombre_valor);
+
             }
         });
 
@@ -329,6 +349,26 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
                 {
                     viewPagerValores.setCurrentItem(4);
                 }
+                else if (item.getItemId()==R.id.V6)
+                {
+                    viewPagerValores.setCurrentItem(5);
+                }
+                else if (item.getItemId()==R.id.V7)
+                {
+                    viewPagerValores.setCurrentItem(6);
+                }
+                else if (item.getItemId()==R.id.V8)
+                {
+                    viewPagerValores.setCurrentItem(7);
+                }
+                else if (item.getItemId()==R.id.V9)
+                {
+                    viewPagerValores.setCurrentItem(8);
+                }
+                else if (item.getItemId()==R.id.V10);
+                {
+                    viewPagerValores.setCurrentItem(9);
+                }
                 DL.closeDrawer(GravityCompat.START);
                 return true;
             }
@@ -337,9 +377,8 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
         FAB.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                intentComentarios.putExtra("NOMBRE", nombreUsuario);
+                intentComentarios.putExtra("VALOR", nombre_valor);
                 startActivity(intentComentarios);
-
 
             }
         });
@@ -413,5 +452,4 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
         }
         return true;
     }
-
 }

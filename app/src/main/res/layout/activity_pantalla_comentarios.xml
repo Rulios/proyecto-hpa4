@@ -26,9 +26,9 @@
             app:titleTextColor="#FFFFFF" />
 
         <ListView
-            android:id="@+id/_dynamic"
+            android:id="@+id/lsComentarios"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="match_parent"
             android:layout_above="@+id/ETcoment"
             android:layout_below="@+id/TB2"
             android:layout_marginTop="0dp"

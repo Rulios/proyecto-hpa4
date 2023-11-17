@@ -8,7 +8,7 @@ public class Database extends SQLiteOpenHelper {
     private static Database instance = null;
 
     private Database(Context context) {
-        super(context, "proyecto2Database.db", null, 1);
+        super(context, "proyecto2Database.db", null, 3);
     }
 
     public static synchronized Database getInstance(Context context) {
@@ -24,15 +24,17 @@ public class Database extends SQLiteOpenHelper {
         db.execSQL("Create table usuarios (_id INTEGER PRIMARY KEY AUTOINCREMENT, USERNAME TEXT UNIQUE);");
         db.execSQL("Create table valores (_id INTEGER PRIMARY KEY AUTOINCREMENT, NOMBRE_VALOR TEXT UNIQUE, DESCRIPCION TEXT);");
         db.execSQL("CREATE TABLE comentarios (" +
+                "_id INTEGER PRIMARY KEY AUTOINCREMENT, " +
                 "USERNAME TEXT NOT NULL, " +
                 "NOMBRE_VALOR TEXT NOT NULL, " +
                 "DESCRIPCION TEXT NOT NULL,"+
                 "FECHA TEXT NOT NULL,"+
-                "PRIMARY KEY (USERNAME, NOMBRE_VALOR), " +
                 "FOREIGN KEY (USERNAME) REFERENCES usuarios (USERNAME) ON DELETE CASCADE, " +
                 "FOREIGN KEY (NOMBRE_VALOR) REFERENCES valores (NOMBRE_VALOR) ON DELETE CASCADE " +
                 ");");
 
+        // Incrementar la versión de la base de datos
+        db.setVersion(db.getVersion() + 1);
     }
 
     @Override

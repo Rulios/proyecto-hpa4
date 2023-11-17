@@ -26,18 +26,34 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:title="Amor" />
-
+        <item
+            android:id="@+id/V6"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:title="Modestia" />
+        <item
+            android:id="@+id/V7"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:title="Ambición" />
+        <item
+            android:id="@+id/V8"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:title="Valentía" />
+        <item
+            android:id="@+id/V9"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:title="Lealtad" />
+        <item
+            android:id="@+id/V10"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:title="Compasión" />
     </group>
 
-    <item
-        android:title="">
 
-        <menu>
-            <item
-                android:id="@+id/cerrarsesion"
-                android:title="Cerrar sesión"/>
-        </menu>
-    </item>
 
 
 </menu>
