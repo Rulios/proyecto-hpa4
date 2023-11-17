@@ -5,7 +5,9 @@ import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.database.Cursor;
+import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 
 import android.util.Log;
@@ -18,6 +20,7 @@ import androidx.drawerlayout.widget.DrawerLayout;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ProgressBar;
+import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -28,7 +31,9 @@ import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.navigation.NavigationView;
 
 public class MainActivity extends AppCompatActivity {
-
+    private static final String PREFS_NAME = "PrefsUserSesion";
+    private static final String KEY_USERNAME = "username";
+    SharedPreferences prefs;
     private Toolbar TB;
     private DrawerLayout DL;
 
@@ -38,7 +43,7 @@ public class MainActivity extends AppCompatActivity {
 
     FloatingActionButton FAB;
 
-    String nombreUsuario;
+    String nombreUsuario, nombre_valor;
 
     Usuarios usuario;
 
@@ -49,16 +54,22 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        DatabaseSingleton.init(this);
+        DatabaseSingleton.getDatabase();
 
-        Intent intent = getIntent();
+        prefs = getSharedPreferences(PREFS_NAME, MODE_PRIVATE);
+        nombreUsuario = prefs.getString(KEY_USERNAME, null);
+
+
+
+        //Intent intent = getIntent();
         Intent intentComentarios=new Intent(MainActivity.this, PantallaComentarios.class);
 
-        nombreUsuario = intent.getStringExtra("NOMBRE");
+        //nombreUsuario = intent.getStringExtra("NOMBRE");
         //añadir código de creación del Usuarios
         //usuario = New Usuarios(nombreUsuario);
         //etc
         //...
+        SQLiteDatabase db = DatabaseSingleton.getDatabase();
 
         TB=findViewById(R.id.TB);
         setSupportActionBar(TB);
@@ -118,6 +129,9 @@ public class MainActivity extends AppCompatActivity {
                 super.onPageSelected(position);
                 progressBar.setProgress(position + 1);
                 Log.d("Slide position ", "valor: " + position);
+                nombre_valor = Valores.findNameById(position+1);
+                Log.d("Nombre ", "valor: " + nombre_valor);
+
             }
         });
 
@@ -149,9 +163,8 @@ public class MainActivity extends AppCompatActivity {
         FAB.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                intentComentarios.putExtra("NOMBRE", nombreUsuario);
+                intentComentarios.putExtra("VALOR", nombre_valor);
                 startActivity(intentComentarios);
-
 
             }
         });
@@ -174,5 +187,4 @@ public class MainActivity extends AppCompatActivity {
         }
         return true;
     }
-
 }

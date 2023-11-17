@@ -15,7 +15,6 @@ public class SetNameActivity extends AppCompatActivity {
     private static final String KEY_USERNAME = "username";
     Button button;
     EditText nombre;
-
     Usuarios usuarioIniciado;
 
     @Override
@@ -76,5 +75,4 @@ public class SetNameActivity extends AppCompatActivity {
         editor.remove(KEY_USERNAME);
         editor.apply();
     }
-
 }

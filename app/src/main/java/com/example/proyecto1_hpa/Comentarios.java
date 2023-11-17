@@ -15,7 +15,7 @@ public class Comentarios {
     private final SQLiteDatabase db;
     private final String username;
     private final String nombre_valor;
-
+    private int idComentario;
     private String fechaStr;
 
     private String descripcion;
@@ -38,6 +38,9 @@ public class Comentarios {
     public String getDescripcion() {
         return descripcion;
     }
+    public int getIdComentario() {
+        return idComentario;
+    }
     public String getFecha() { return fechaStr; }
     public void setFechaStr(String fechaStr) {
         this.fechaStr = fechaStr;
@@ -45,6 +48,7 @@ public class Comentarios {
 
     public void setDescripcion(String descripcion) {
         this.descripcion = descripcion;
+        update();
     }
     public void save() {
         ContentValues contentValues = new ContentValues();
@@ -61,17 +65,16 @@ public class Comentarios {
 
     private void update() {
         ContentValues contentValues = new ContentValues();
+
         this.fecha = LocalDateTime.now();
-
-
         fechaStr = this.fecha.format(formatter);
 
         contentValues.put("DESCRIPCION", this.descripcion);
         contentValues.put("FECHA", fechaStr);
 
-        db.update("comentarios", contentValues, "USERNAME = ?", new String[]{this.username});
+        db.update("comentarios", contentValues, "_id = ?", new String[]{String.valueOf(this.idComentario)});
     }
-
+    /*
     @SuppressLint("Range")
     public static int getId(String username, String nombre_valor) {
         SQLiteDatabase db = DatabaseSingleton.getDatabase();
@@ -90,10 +93,10 @@ public class Comentarios {
             return -1; // Devuelve -1 si no se encuentra el comentario
         }
     }
+    */
 
     public void delete() {
-        int id = Comentarios.getId(this.username, this.nombre_valor);
-        db.delete("comentarios", "_id = ?", new String[]{String.valueOf(id)});
+        db.delete("comentarios", "_id = ?", new String[]{String.valueOf(this.idComentario)});
     }
 
     @SuppressLint("Range")
@@ -109,6 +112,8 @@ public class Comentarios {
 
         ArrayList<Comentarios> listaComentarios = new ArrayList<>();
         while (cursor.moveToNext()) {
+            int _id = cursor.getInt(cursor.getColumnIndex("_id"));
+
             String username = cursor.getString(cursor.getColumnIndex("USERNAME"));
             String descripcion = cursor.getString(cursor.getColumnIndex("DESCRIPCION"));
             String fecha = cursor.getString(cursor.getColumnIndex("FECHA"));
@@ -116,6 +121,7 @@ public class Comentarios {
 
             Comentarios comentario = new Comentarios(username, valor, descripcion);
             comentario.setFechaStr(fecha);
+            comentario.idComentario = _id;
 
             listaComentarios.add(comentario);
         }

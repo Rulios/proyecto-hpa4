@@ -6,8 +6,9 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.TextView;
-
+import java.util.ArrayList;
 import java.util.List;
+import java.util.zip.Inflater;
 
 public class AdaptadorViewComentarios extends BaseAdapter {
     Context contexto;
@@ -28,8 +29,9 @@ public class AdaptadorViewComentarios extends BaseAdapter {
     public Object getItem(int position){
         return dataList.get(position);
     }
+
     @Override
-    public long getItemId(int position) {return 0;}
+    public long getItemId(int position) {return dataList.get(position).getIdComentario();}
 
     public void setDataList(List<Comentarios> dataList) {
         this.dataList = dataList;
@@ -38,8 +40,10 @@ public class AdaptadorViewComentarios extends BaseAdapter {
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
         View vista = convertView;
-        LayoutInflater inflate = LayoutInflater.from(contexto);
-        vista = inflate.inflate(R.layout.comentario, null);
+        if (convertView == null) {
+            LayoutInflater inflate = LayoutInflater.from(contexto);
+            vista = inflate.inflate(R.layout.comentario, null);
+        }
 
 
         // Bind data to your view

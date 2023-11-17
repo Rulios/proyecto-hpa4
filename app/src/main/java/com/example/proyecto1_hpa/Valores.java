@@ -63,7 +63,6 @@ public class Valores {
             contentValues.put("DESCRIPCION", this.descripcion);
 
             db.insert("valores", null, contentValues);
-
         }
         c.close();
     }
@@ -127,4 +126,6 @@ public class Valores {
         String query = "SELECT * FROM valores";
         return db.rawQuery(query, null);
     }
+
+
 }
