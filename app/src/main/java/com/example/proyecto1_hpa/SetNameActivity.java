@@ -9,10 +9,15 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 
+//Clase que controla la vista del layout set_name.xml, vista que pide el nombre de usuario y lo 
+//guarda dentro de los SharedPreferences de la app
 public class SetNameActivity extends AppCompatActivity {
 
+    //nombres de las propiedades en los SharedPreferences
     private static final String PREFS_NAME = "PrefsUserSesion";
     private static final String KEY_USERNAME = "username";
+
+    //componentes de la vista
     Button button;
     EditText nombre;
     Usuarios usuarioIniciado;
@@ -21,18 +26,24 @@ public class SetNameActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_set_name);
-
+        
         SharedPreferences prefs_slides = getSharedPreferences("myPrefs", MODE_PRIVATE);
         SharedPreferences.Editor editor_slides = prefs_slides.edit();
 
         editor_slides.putInt("slide", 0);
         editor_slides.apply();
 
+
+        //inicialización de la base de datos
+
         DatabaseSingleton.init(this);
 
+        //identificación de los componentes en el layout
         button = findViewById(R.id.button);
         nombre = findViewById(R.id.nombre);
 
+        //evento click del botón, donde guarda el valor obtenido de nombre usuario 
+        //y lo guarda dentro de los SharedPreferences de la app. Para finalmente, hacer un intent al MainActivity
         button.setOnClickListener(v -> {
             Intent intent = new Intent(SetNameActivity.this, MainActivity.class);
 
@@ -58,6 +69,8 @@ public class SetNameActivity extends AppCompatActivity {
         });
     }
 
+
+    //método de inicio de sesión en la aplicación
     public void login(String username) {
         // Iniciar la sesión
         SharedPreferences prefs = getSharedPreferences(PREFS_NAME, MODE_PRIVATE);
@@ -74,6 +87,9 @@ public class SetNameActivity extends AppCompatActivity {
         editor.apply();
     }
 
+
+    //método de cierro de sesión de la aplicación
+    //borrando datos del SharedPreferences
     public void logout() {
         // Cerrar la sesión
         SharedPreferences prefs = getSharedPreferences(PREFS_NAME, MODE_PRIVATE);
