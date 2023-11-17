@@ -59,6 +59,9 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
     SensorManager sensorManager;
     Sensor sensor;
     int THEME = R.style.Base_Theme_Proyecto1_HPA;
+    int CurrentSlide = 0;
+    SharedPreferences sharedPref;
+    SharedPreferences.Editor editor;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -69,8 +72,10 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
     }
 
     public void Recargar() {
-        // Recuperar el valor de THEME desde SharedPreferences
-        SharedPreferences sharedPref = getSharedPreferences("myPrefs", Context.MODE_PRIVATE);
+
+        sharedPref = getSharedPreferences("myPrefs", Context.MODE_PRIVATE);
+        editor = sharedPref.edit();
+
         THEME = sharedPref.getInt("theme", R.style.Base_Theme_Proyecto1_HPA);
         setTheme(THEME);
 
@@ -93,18 +98,11 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
         //Intent intent = getIntent();
         Intent intentComentarios=new Intent(MainActivity.this, PantallaComentarios.class);
 
-        //nombreUsuario = intent.getStringExtra("NOMBRE");
-        //añadir código de creación del Usuarios
-        //usuario = New Usuarios(nombreUsuario);
-        //etc
-        //...
-
-        // // SQLiteDatabase db = DatabaseSingleton.getDatabase();
-
         TB=findViewById(R.id.TB);
         setSupportActionBar(TB);
         DL=(DrawerLayout) findViewById(R.id.DL);
         NV=(NavigationView)findViewById(R.id.NV);
+
         FAB=(FloatingActionButton) findViewById(R.id.FAB);
 
         progressBar = findViewById(R.id.progressBar);
@@ -404,29 +402,25 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
                 super.onPageSelected(position);
                 progressBar.setProgress(position + 1);
                 nombre_valor = Valores.findNameById(position+1);
+
+                editor.putInt("slide", viewPagerValores.getCurrentItem());
+                editor.apply();
             }
         });
 
         NV.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
             @Override
             public boolean onNavigationItemSelected(@NonNull MenuItem item) {
-                if (item.getItemId()==R.id.V1)
-                {
-                    viewPagerValores.setCurrentItem(0);
-                }
-                else if (item.getItemId()==R.id.V2)
-                {
-                    viewPagerValores.setCurrentItem(1);
-                }else if (item.getItemId()==R.id.V3)
-                {
-                    viewPagerValores.setCurrentItem(2);
-                }else if (item.getItemId()==R.id.V4)
-                {
-                    viewPagerValores.setCurrentItem(3);
-                }else if (item.getItemId()==R.id.V5)
-                {
-                    viewPagerValores.setCurrentItem(4);
-                }
+                if      (item.getItemId()==R.id.V1){viewPagerValores.setCurrentItem(0);}
+                else if (item.getItemId()==R.id.V2){viewPagerValores.setCurrentItem(1);}
+                else if (item.getItemId()==R.id.V3){viewPagerValores.setCurrentItem(2);}
+                else if (item.getItemId()==R.id.V4){viewPagerValores.setCurrentItem(3);}
+                else if (item.getItemId()==R.id.V5){viewPagerValores.setCurrentItem(4);}
+                else if (item.getItemId()==R.id.V6){viewPagerValores.setCurrentItem(5);}
+                else if (item.getItemId()==R.id.V7){viewPagerValores.setCurrentItem(6);}
+                else if (item.getItemId()==R.id.V8){viewPagerValores.setCurrentItem(7);}
+                else if (item.getItemId()==R.id.V9){viewPagerValores.setCurrentItem(8);}
+                else if (item.getItemId()==R.id.V10){viewPagerValores.setCurrentItem(9);}
                 DL.closeDrawer(GravityCompat.START);
                 return true;
             }
@@ -439,6 +433,11 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
                 startActivity(intentComentarios);
             }
         });
+
+        // Recordando antes del cambio de tema
+        CurrentSlide = sharedPref.getInt("slide", 0);
+        viewPagerValores.setCurrentItem(CurrentSlide);
+
     }
     // SENSOR, TEMAS
     @Override
@@ -446,10 +445,6 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
 
         Sensor mySensor = sensorEvent.sensor;
         float LuzActual = sensorEvent.values[0];
-
-        // Guardar el valor de THEME en SharedPreferences
-        SharedPreferences sharedPref = getSharedPreferences("myPrefs", Context.MODE_PRIVATE);
-        SharedPreferences.Editor editor = sharedPref.edit();
 
         if (mySensor.getType() == Sensor.TYPE_LIGHT) {
 
@@ -498,4 +493,6 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
         }
         return true;
     }
+
 }
+

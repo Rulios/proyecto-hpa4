@@ -22,6 +22,12 @@ public class SetNameActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_set_name);
 
+        SharedPreferences prefs_slides = getSharedPreferences("myPrefs", MODE_PRIVATE);
+        SharedPreferences.Editor editor_slides = prefs_slides.edit();
+
+        editor_slides.putInt("slide", 0);
+        editor_slides.apply();
+
         DatabaseSingleton.init(this);
 
         button = findViewById(R.id.button);

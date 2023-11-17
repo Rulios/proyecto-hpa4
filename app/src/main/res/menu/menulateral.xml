@@ -25,7 +25,7 @@
             android:id="@+id/V5"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:title="Amor" />
+            android:title="Humildad" />
         <item
             android:id="@+id/V6"
             android:layout_width="wrap_content"
