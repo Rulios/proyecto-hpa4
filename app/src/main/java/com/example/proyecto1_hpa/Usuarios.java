@@ -17,9 +17,11 @@ public class Usuarios {
         this.username = username;
     }
 
+    // No usado
     public String getUsername() {
         return username;
     }
+    // No usado
     public void setUsername(String username) {
         int id = getId();
         this.username = username;
@@ -40,6 +42,7 @@ public class Usuarios {
 
     }
 
+    // No usado
     private void update(int id) {
         ContentValues contentValues = new ContentValues();
         contentValues.put("USERNAME", this.username);
@@ -50,6 +53,7 @@ public class Usuarios {
         db.delete("usuarios", "USERNAME = ?", new String[]{this.username});
     }
 
+    // No usado
     private int getId(){
 
         String[] columns = new String[] {"_id"};
@@ -86,6 +90,7 @@ public class Usuarios {
             return null;
         }
     }
+    // No usado
     public static Cursor getAllUsers() {
         SQLiteDatabase db = DatabaseSingleton.getDatabase();
         String query = "SELECT * FROM usuarios";

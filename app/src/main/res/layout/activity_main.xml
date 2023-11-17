@@ -35,10 +35,10 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:indeterminate="false"
-            android:max="5"
+            android:max="10"
             android:min="0"
             android:progress="0"
-            android:progressTint="#FFD600" />
+            android:progressTint="?attr/colorOnBackground" />
 
         <androidx.viewpager2.widget.ViewPager2
             android:id="@+id/viewPager2"

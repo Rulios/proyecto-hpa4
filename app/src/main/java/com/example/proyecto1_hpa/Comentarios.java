@@ -45,7 +45,7 @@ public class Comentarios {
     public void setFechaStr(String fechaStr) {
         this.fechaStr = fechaStr;
     }
-
+    // No usado
     public void setDescripcion(String descripcion) {
         this.descripcion = descripcion;
         update();
@@ -62,7 +62,7 @@ public class Comentarios {
 
         db.insert("comentarios", null, contentValues);
     }
-
+    // No usado
     private void update() {
         ContentValues contentValues = new ContentValues();
 
@@ -94,7 +94,7 @@ public class Comentarios {
         }
     }
     */
-
+    // No usado
     public void delete() {
         db.delete("comentarios", "_id = ?", new String[]{String.valueOf(this.idComentario)});
     }
