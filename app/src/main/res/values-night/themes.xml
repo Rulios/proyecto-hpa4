@@ -17,4 +17,6 @@
         <item name="colorOnPrimary">@color/GrisOscuro</item>
         <item name="colorPrimaryDark">@color/Negro</item>
     </style>
+
+    <style name="Theme.Proyecto1_HPA" parent="Base.Theme.Proyecto1_HPA" />
 </resources>

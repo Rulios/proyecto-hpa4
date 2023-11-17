@@ -22,7 +22,7 @@ public class Valores {
     public String getNombre() {
         return nombre;
     }
-
+    // No usado
     public void setNombre(String nombre) {
         int id = getId();
         this.nombre = nombre;
@@ -36,7 +36,7 @@ public class Valores {
     public String getDescripcion() {
         return descripcion;
     }
-
+    // No usado
     public void setDescripcion(String descripcion) {
         int id = getId();
         this.descripcion = descripcion;
@@ -50,7 +50,7 @@ public class Valores {
     public int getImagen() {
         return imagen;
     }
-
+    // No usado
     public void setImagen(int imagen) {
         this.imagen = imagen;
     }
@@ -66,18 +66,18 @@ public class Valores {
         }
         c.close();
     }
-
+    // No usado
     private void update(int id) {
         ContentValues contentValues = new ContentValues();
         contentValues.put("NOMBRE_VALOR", this.nombre);
         contentValues.put("DESCRIPCION", this.descripcion);
         db.update("valores", contentValues, "_id = ?", new String[]{String.valueOf(id)});
     }
-
+    // No usado
     public void delete() {
         db.delete("valores", "NOMBRE_VALOR = ?", new String[]{this.nombre});
     }
-
+    // No usado
     @SuppressLint("Range")
     public int getId(){
 
@@ -113,6 +113,7 @@ public class Valores {
             return null;
         }
     }
+
     public static Cursor findByNombre(String nombre_valor) {
         SQLiteDatabase db = DatabaseSingleton.getDatabase();
         String[] columns = new String[] {"NOMBRE_VALOR"};
@@ -121,6 +122,7 @@ public class Valores {
 
         return db.query("valores", columns, selection, selectionArgs, null, null, null, "1");
     }
+    // No usado
     public static Cursor getAllValores() {
         SQLiteDatabase db = DatabaseSingleton.getDatabase();
         String query = "SELECT * FROM valores";

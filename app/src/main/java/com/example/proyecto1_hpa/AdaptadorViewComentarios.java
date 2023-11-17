@@ -45,7 +45,6 @@ public class AdaptadorViewComentarios extends BaseAdapter {
             vista = inflate.inflate(R.layout.comentario, null);
         }
 
-
         // Bind data to your view
         TextView usuarioTextView = vista.findViewById(R.id.Usaurio);
         TextView comentarioTextView = vista.findViewById(R.id.comentario);
