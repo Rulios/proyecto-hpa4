@@ -89,12 +89,9 @@ public class Valores {
         db.update("valores", contentValues, "_id = ?", new String[]{String.valueOf(id)});
     }
 
-    // Elimina el valor de la base de datos
-    public void delete() {
-        db.delete("valores", "NOMBRE_VALOR = ?", new String[]{this.nombre});
-    }
+ 
 
-    // Obtiene el ID del valor si existe en la base de datos
+    // Elimina el valor de la base de datos
     // No usado
     public void delete() {
         db.delete("valores", "NOMBRE_VALOR = ?", new String[]{this.nombre});
