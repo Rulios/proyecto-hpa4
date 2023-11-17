@@ -1,10 +1,17 @@
 package com.example.proyecto1_hpa;
 
+
+
+
+
+
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBarDrawerToggle;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.database.Cursor;
@@ -100,6 +107,9 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
         //...
 
         // // SQLiteDatabase db = DatabaseSingleton.getDatabase();
+
+
+
 
         TB=findViewById(R.id.TB);
         setSupportActionBar(TB);
@@ -493,8 +503,31 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
     public boolean onOptionsItemSelected(MenuItem item){
         if(item.getItemId()==R.id.close)
         {
-            Intent intentRegresar=new Intent(MainActivity.this, SetNameActivity.class);
-            startActivity(intentRegresar);
+            AlertDialog.Builder builder=new AlertDialog.Builder(this);
+            builder.setPositiveButton("aceptar", new DialogInterface.OnClickListener(){
+                @Override
+                public void onClick(DialogInterface dialog, int id) {
+                    //toca acpetar
+                    Intent intentRegresar=new Intent(MainActivity.this, SetNameActivity.class);
+                    startActivity(intentRegresar);
+                }
+            });
+            builder.setNegativeButton("cancelar", new DialogInterface.OnClickListener(){
+                @Override
+                public void onClick(DialogInterface dialog, int id){
+                    //Toca cancelar
+                    //No ocurre nada, se cierra
+                }
+            });
+            builder.setTitle("Cerrar sesión");
+            builder.setMessage("¿Desea cerrar sesión?");
+            AlertDialog dialog=builder.create();
+            dialog.show();
+
+
+
+
+
         }
         return true;
     }
