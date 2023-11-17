@@ -98,7 +98,7 @@ public class PantallaComentarios extends AppCompatActivity {
             listaComentarios.addAll(Comentarios.getAllComments(valor));
 
             adaptadoComentarios.setDataList(listaComentarios);
-            adaptadoComentarios.notifyDataSetInvalidated();
+            adaptadoComentarios.notifyDataSetChanged();
 
             etComentario.setText("");
         }
