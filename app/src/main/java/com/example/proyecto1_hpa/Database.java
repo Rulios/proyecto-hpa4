@@ -8,7 +8,7 @@ public class Database extends SQLiteOpenHelper {
     private static Database instance = null;
 
     private Database(Context context) {
-        super(context, "proyecto2Database.db", null, 3);
+        super(context, "proyecto2Database.db", null, 4);
     }
 
     public static synchronized Database getInstance(Context context) {
