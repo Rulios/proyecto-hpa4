@@ -158,6 +158,26 @@ public class MainActivity extends AppCompatActivity {
                 {
                     viewPagerValores.setCurrentItem(4);
                 }
+                else if (item.getItemId()==R.id.V6)
+                {
+                    viewPagerValores.setCurrentItem(5);
+                }
+                else if (item.getItemId()==R.id.V7)
+                {
+                    viewPagerValores.setCurrentItem(6);
+                }
+                else if (item.getItemId()==R.id.V8)
+                {
+                    viewPagerValores.setCurrentItem(7);
+                }
+                else if (item.getItemId()==R.id.V9)
+                {
+                    viewPagerValores.setCurrentItem(8);
+                }
+                else if (item.getItemId()==R.id.V10);
+                {
+                    viewPagerValores.setCurrentItem(9);
+                }
                 DL.closeDrawer(GravityCompat.START);
                 return true;
             }
