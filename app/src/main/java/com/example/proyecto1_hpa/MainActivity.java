@@ -44,9 +44,14 @@ import com.google.android.material.navigation.NavigationView;
 
 
 public class MainActivity extends AppCompatActivity implements SensorEventListener {
+
+
+    //keys del shared preferences
     private static final String PREFS_NAME = "PrefsUserSesion";
     private static final String KEY_USERNAME = "username";
     SharedPreferences prefs;
+
+    //inicialización de los componentes del layout
     private Toolbar TB;
     private DrawerLayout DL;
 
@@ -78,11 +83,13 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
 
     }
 
+    //Regenera todo el layout aplicando todo el tema cambiado
     public void Recargar() {
 
         sharedPref = getSharedPreferences("myPrefs", Context.MODE_PRIVATE);
         editor = sharedPref.edit();
 
+        //extrae el tema para luego aplicarlo en la vista
         THEME = sharedPref.getInt("theme", R.style.Base_Theme_Proyecto1_HPA);
         setTheme(THEME);
 
@@ -105,6 +112,7 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
         //Intent intent = getIntent();
         Intent intentComentarios=new Intent(MainActivity.this, PantallaComentarios.class);
 
+        //asignación de los elementos a las variables
         TB=findViewById(R.id.TB);
         setSupportActionBar(TB);
         DL=(DrawerLayout) findViewById(R.id.DL);
@@ -117,9 +125,12 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
         //código para llenar la info del viewpager
         viewPagerValores = findViewById(R.id.viewPager2);
 
+        //inicialización de la lista de los slides
         List <Valores> lista;
         lista = new ArrayList<Valores>();
 
+
+        //asignación de los valores de todas las slides del ViewPager
         lista.add(new Valores("Respeto", "Respeto: \"La verdadera esencia del respeto radica en reconocer la valía inherente de cada ser humano, construyendo puentes de comprensión y aceptación mutua.\"\n" +
                 "\n" +
                 "El respeto se distingue por la consideración y aprecio hacia los demás, fomentando así un ambiente de comprensión y aceptación en las interacciones humanas.\n" +
@@ -393,31 +404,38 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
                 "Dedicar un tiempo diario a reflexionar sobre situaciones en las que se puede expresar compasión. Visualizar activamente el sufrimiento ajeno y considerar maneras de contribuir al alivio de dicho sufrimiento puede fortalecer la habilidad de ser compasivo en diversas circunstancias. Esta práctica continua puede integrar la compasión en la vida cotidiana, promoviendo un entorno más colaborativo y humano.", R.drawable.valor_compasion));
 
         for (Valores valor: lista) {
-            valor.save();
+            valor.save(); //guarda la lista en los valores de acuerdo a su formato
         }
 
+        //inicializa el adaptador del viewpager y lo asigna al ViewPager del layout
         AdaptadorViewPager viewPagerAdaptador = new AdaptadorViewPager( getSupportFragmentManager(), getLifecycle(), lista);
         viewPagerValores.setAdapter(viewPagerAdaptador);
 
+        //inicializa la acción del toggle al Toolbar de lado
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(this, DL, TB, R.string.open_nav, R.string.close_nav);
         DL.addDrawerListener(toggle);
         toggle.syncState();
 
+
+        //evento que se ejecuta cada vez que el viewpager cambia de slide
         viewPagerValores.registerOnPageChangeCallback(new ViewPager2.OnPageChangeCallback() {
             @Override
             public void onPageSelected(int position) {
                 super.onPageSelected(position);
-                progressBar.setProgress(position + 1);
+                progressBar.setProgress(position + 1); //actualiza la posición en el progresbar
                 nombre_valor = Valores.findNameById(position+1);
 
+                //mantiene el valor del slide en el viewpager para cuando se cambie el tema
                 editor.putInt("slide", viewPagerValores.getCurrentItem());
                 editor.apply();
             }
         });
 
+        //evento que se ejecuta cuando se hace click en un item del navigation view
         NV.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
             @Override
             public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+                //cambios en el slide del viewpager de acuerdo al item del navigation view clickeado
                 if      (item.getItemId()==R.id.V1){viewPagerValores.setCurrentItem(0);}
                 else if (item.getItemId()==R.id.V2){viewPagerValores.setCurrentItem(1);}
                 else if (item.getItemId()==R.id.V3){viewPagerValores.setCurrentItem(2);}
@@ -433,11 +451,12 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
             }
         });
 
+        //evento de click para el componente FAB (botón de añadir comentarios)
         FAB.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 intentComentarios.putExtra("VALOR", nombre_valor);
-                startActivity(intentComentarios);
+                startActivity(intentComentarios); //intent hacia el layout the comentarios
             }
         });
 
@@ -453,25 +472,25 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
         Sensor mySensor = sensorEvent.sensor;
         float LuzActual = sensorEvent.values[0];
 
-        if (mySensor.getType() == Sensor.TYPE_LIGHT) {
+        if (mySensor.getType() == Sensor.TYPE_LIGHT) { //ver si el sensor es de tipo de luz
 
             if (LuzActual < 40 && THEME == R.style.Base_Theme_Proyecto1_HPA) {
                 // Cambiar a DarkTheme si la luz es menor a 0.5
                 Log.d("Oscuro", String.valueOf(LuzActual));
                 THEME = R.style.NightTheme;
-                editor.putInt("theme", THEME);
+                editor.putInt("theme", THEME);//actualizar en el shared preferences
                 editor.apply();
 
-                Recargar();
+                Recargar(); //regeneración del layout
 
             } else if (LuzActual >= 130 && THEME == R.style.NightTheme) {
                 // Cambiar a LightTheme si la luz es mayor a 0.5
                 Log.d("Claro", String.valueOf(LuzActual));
                 THEME = R.style.Base_Theme_Proyecto1_HPA;
-                editor.putInt("theme", THEME);
+                editor.putInt("theme", THEME); //actualizar en el shared preferences
                 editor.apply();
 
-                Recargar();
+                Recargar(); //regeneración del layout
 
             }
 
@@ -486,24 +505,27 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
     // SENSOR, TEMAS, FIN
 
     @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
+    public boolean onCreateOptionsMenu(Menu menu) { //menú de inicialización del menú de opciones
         MenuInflater inflater = getMenuInflater();
-        inflater.inflate(R.menu.menutoolbar, menu);
+        inflater.inflate(R.menu.menutoolbar, menu); //infla el menu toolbar con la información correspondiente
         return true;
     }
     @Override
-    public boolean onOptionsItemSelected(MenuItem item){
-        if(item.getItemId()==R.id.close)
+    public boolean onOptionsItemSelected(MenuItem item){ //eventos de cuando se selecciona una opción del menú
+        if(item.getItemId()==R.id.close) //ver si se hizo click en el botón de close
         {
+            //crea un neuvo AlertDialog
             AlertDialog.Builder builder=new AlertDialog.Builder(this);
             builder.setPositiveButton("aceptar", new DialogInterface.OnClickListener(){
                 @Override
                 public void onClick(DialogInterface dialog, int id) {
-                    //toca acpetar
+                    //toca acpetar, lo manda en un intent a SetName activity
                     Intent intentRegresar=new Intent(MainActivity.this, SetNameActivity.class);
                     startActivity(intentRegresar);
                 }
             });
+
+            //si se hace click en cancelar
             builder.setNegativeButton("cancelar", new DialogInterface.OnClickListener(){
                 @Override
                 public void onClick(DialogInterface dialog, int id){
@@ -511,10 +533,12 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
                     //No ocurre nada, se cierra
                 }
             });
+
+            //estilo y texto del AlertDialog
             builder.setTitle("Cerrar sesión");
             builder.setMessage("¿Desea cerrar sesión?");
             AlertDialog dialog=builder.create();
-            dialog.show();
+            dialog.show(); //muestra el AlertDialog
 
 
 
