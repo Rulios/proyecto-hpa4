@@ -2,4 +2,17 @@
 <resources>
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
+
+    <color name="AzulClaro">#4DA8E6</color> <!-- Principal -->
+    <color name="CelesteClaro">#81D4FA</color> <!-- Secundario -->
+    <color name="AzulGrisaceoClaro">#AEC6CF</color> <!-- Fondo -->
+    <color name="GrisClaro">#E0E0E0</color> <!-- Detalles -->
+    <color name="Blanco">#FFFFFF</color> <!-- Resaltados -->
+
+    <color name="AzulOscuro">#1F4172</color> <!-- Principal -->
+    <color name="CelesteOscuro">#066C69</color> <!-- Secundario -->
+    <color name="AzulGrisaceoOscuro">#4D636F</color> <!-- Fondo -->
+    <color name="GrisOscuro">#424242</color> <!-- Detalles -->
+    <color name="Negro">#000000</color> <!-- Resaltados -->
+
 </resources>

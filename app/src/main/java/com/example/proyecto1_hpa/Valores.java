@@ -28,6 +28,7 @@ public class Valores {
     }
 
     // Cambia el nombre del valor y actualiza la base de datos si existe
+    // No usado
     public void setNombre(String nombre) {
         int id = getId();
         this.nombre = nombre;
@@ -44,6 +45,7 @@ public class Valores {
     }
 
     // Cambia la descripción del valor y actualiza la base de datos si existe
+    // No usado
     public void setDescripcion(String descripcion) {
         int id = getId();
         this.descripcion = descripcion;
@@ -60,6 +62,7 @@ public class Valores {
     }
 
     // Cambia la imagen asociada al valor
+    // No usado
     public void setImagen(int imagen) {
         this.imagen = imagen;
     }
@@ -78,6 +81,7 @@ public class Valores {
     }
 
     // Actualiza el valor en la base de datos
+    // No usado
     private void update(int id) {
         ContentValues contentValues = new ContentValues();
         contentValues.put("NOMBRE_VALOR", this.nombre);
@@ -91,6 +95,11 @@ public class Valores {
     }
 
     // Obtiene el ID del valor si existe en la base de datos
+    // No usado
+    public void delete() {
+        db.delete("valores", "NOMBRE_VALOR = ?", new String[]{this.nombre});
+    }
+    // No usado
     @SuppressLint("Range")
     public int getId(){
 
@@ -139,6 +148,7 @@ public class Valores {
     }
 
     // Obtiene todos los valores de la base de datos
+    // No usado
     public static Cursor getAllValores() {
         SQLiteDatabase db = DatabaseSingleton.getDatabase();
         String query = "SELECT * FROM valores";

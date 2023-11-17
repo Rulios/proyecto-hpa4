@@ -1,7 +1,22 @@
 <resources xmlns:tools="http://schemas.android.com/tools">
     <!-- Base application theme. -->
-    <style name="Base.Theme.Proyecto1_HPA" parent="Theme.Material3.DayNight.NoActionBar">
-        <!-- Customize your dark theme here. -->
-        <!-- <item name="colorPrimary">@color/my_dark_primary</item> -->
+    <style name="Base.Theme.Proyecto1_HPA" parent="Theme.MaterialComponents.Light.NoActionBar">
+        <!-- Customize your light theme here. -->
+        <item name="colorPrimary">@color/AzulClaro</item>
+        <item name="colorSecondary">@color/CelesteClaro</item>
+        <item name="colorOnBackground">@color/AzulGrisaceoClaro</item>
+        <item name="colorOnPrimary">@color/GrisClaro</item>
+        <item name="colorPrimaryDark">@color/Blanco</item>
     </style>
+
+    <style name="NightTheme" parent="Theme.MaterialComponents.Light.NoActionBar">
+        <!-- Customize your light theme here. -->
+        <item name="colorPrimary">@color/AzulOscuro</item>
+        <item name="colorSecondary">@color/CelesteOscuro</item>
+        <item name="colorOnBackground">@color/AzulGrisaceoOscuro</item>
+        <item name="colorOnPrimary">@color/GrisOscuro</item>
+        <item name="colorPrimaryDark">@color/Negro</item>
+    </style>
+
+    <style name="Theme.Proyecto1_HPA" parent="Base.Theme.Proyecto1_HPA" />
 </resources>

@@ -48,16 +48,8 @@ public class PantallaComentarios extends AppCompatActivity {
         etComentario = findViewById(R.id.ETcoment);
 
         listaComentarios = Comentarios.getAllComments(valor);
-        if(listaComentarios != null){
-            for (Comentarios cm:
-                    listaComentarios) {
-                Log.d("Comentario: ", cm.getDescripcion());
-            }
-        }
 
         adaptadoComentarios = new AdaptadorViewComentarios(getApplicationContext(), listaComentarios);
-        Log.d("Tamano array: ", String.valueOf(listaComentarios.size()));
-        Log.d("Tamano adaptador: ", String.valueOf(adaptadoComentarios.getCount()));
 
         lstComentarios.setAdapter(adaptadoComentarios);
         btnComentar.setOnClickListener(new View.OnClickListener() {
@@ -74,6 +66,9 @@ public class PantallaComentarios extends AppCompatActivity {
         TB2=(Toolbar) findViewById(R.id.TB2);
         setSupportActionBar(TB2);
 
+        TB2.setTitle("Comentarios de " + valor);
+
+        // El sistema operativo saca el teclado y lo acepta como entrada de datos | Y se manda a hacer un redimensionamiento
         getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_RESIZE);
 
     }
@@ -84,7 +79,6 @@ public class PantallaComentarios extends AppCompatActivity {
         MenuInflater inflater=getMenuInflater();
         inflater.inflate(R.menu.menuoolbarcomentarios, menu);
         TB2.setNavigationIcon(null);
-
         return true;
     }
 
@@ -108,7 +102,7 @@ public class PantallaComentarios extends AppCompatActivity {
     public boolean onOptionsItemSelected(MenuItem item){
         if(item.getItemId()==R.id.returnButton)
         {
-            Intent intentRegresarVal=new Intent(PantallaComentarios.this, MainActivity.class);
+            Intent intentRegresarVal = new Intent(PantallaComentarios.this, MainActivity.class);
             startActivity(intentRegresarVal);
         }
         return true;
@@ -117,12 +111,6 @@ public class PantallaComentarios extends AppCompatActivity {
     @Override
     protected void onResume(){
         SIA.onResume();
-        /*
-        listaComentarios = Comentarios.getAllComments(valor);
-        AdaptadorViewComentarios adaptadoComentarios = new AdaptadorViewComentarios(getApplicationContext(), listaComentarios);
-        lstComentarios.setAdapter(adaptadoComentarios);
-
-         */
         super.onResume();
     }
 
