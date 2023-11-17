@@ -29,15 +29,7 @@
 
     </group>
 
-    <item
-        android:title="">
 
-        <menu>
-            <item
-                android:id="@+id/cerrarsesion"
-                android:title="Cerrar sesión"/>
-        </menu>
-    </item>
 
 
 </menu>
