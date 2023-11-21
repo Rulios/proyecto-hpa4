@@ -125,6 +125,8 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
         //código para llenar la info del viewpager
         viewPagerValores = findViewById(R.id.viewPager2);
 
+
+
         //inicialización de la lista de los slides
         List <Valores> lista;
         lista = new ArrayList<Valores>();
@@ -462,7 +464,8 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
 
         // Recordando antes del cambio de tema
         CurrentSlide = sharedPref.getInt("slide", 0);
-        viewPagerValores.setCurrentItem(CurrentSlide);
+        viewPagerValores.setCurrentItem(CurrentSlide, false);
+
 
     }
     // SENSOR, TEMAS
